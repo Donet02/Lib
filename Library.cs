@@ -79,31 +79,46 @@ namespace LibraryApp
         // Az _availableBooks listában szereplő példányok számát adja vissza — -1 ha a cím nem szerepel
         public int GetAvailableCopies(string title)
         {
-            throw new NotImplementedException();
+            if (_availableBooks.Contains(title))
+            {
+                return _availableBooks.Count(book => book == title);
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         // Visszatér true-val ha legalább egy szabad példány elérhető
         public bool IsAvailable(string title)
         {
-            throw new NotImplementedException();
+            if (_availableBooks.Contains(title))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Az összes egyedi cím száma (elérhető és kikölcsönzött együtt)
         public int GetTotalTitles()
         {
-            throw new NotImplementedException();
+            return _availableBooks.Union(_borrowedBooks).Distinct().Count();
+
         }
 
         // Az összes jelenleg kikölcsönzött példány száma
         public int GetTotalBorrowed()
         {
-            throw new NotImplementedException();
+            return _borrowedBooks.Count;
         }
 
         // Eltávolít minden példányt — visszatér false ha a cím nem létezik
         public bool RemoveBook(string title)
         {
-            throw new NotImplementedException();
+            return _availableBooks.RemoveAll(book => book == title) > 0 || _borrowedBooks.RemoveAll(book => book == title) > 0;
         }
     }
 }
