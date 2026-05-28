@@ -64,7 +64,16 @@ namespace LibraryApp
         // Visszatér false-al ha nincs kikölcsönzött példány a megadott címből
         public bool ReturnBook(string title)
         {
-            throw new NotImplementedException();
+            if (_borrowedBooks.Contains(title))
+            {
+                _borrowedBooks.Remove(title);
+                _availableBooks.Add(title);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // Az _availableBooks listában szereplő példányok számát adja vissza — -1 ha a cím nem szerepel
